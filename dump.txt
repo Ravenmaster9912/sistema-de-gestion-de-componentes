@@ -1,0 +1,13 @@
+CREATE TABLE cliente(id_cliente numeric NOT NULL PRIMARY KEY,nombre varchar(30) NOT NULL,telefono numeric(15) NOT NULL,correo varchar(30) NOT NULL);
+
+CREATE TABLE proveedor(id_proveedor numeric NOT NULL PRIMARY KEY,nombre_empresa varchar(20) NOT NULL,telefono_p numeric(15) NOT NULL);
+
+CREATE TABLE departamento(id_departamento numeric NOT NULL PRIMARY KEY,nombre_d varchar(20) NOT NULL);
+
+CREATE TABLE empleado(id_empleado numeric NOT NULL PRIMARY KEY,nombre_e varchar(30) NOT NULL,departamento numeric NOT NULL REFERENCES departamento(id_departamento));
+
+CREATE TABLE producto(id_producto numeric NOT NULL PRIMARY KEY,descripcion varchar(30) NOT NULL,marca varchar(20) NOT NULL,fecha_recibido varchar(20),recibe_empleado numeric NOT NULL REFERENCES empleado(id_empleado),proveedor numeric NOT NULL REFERENCES proveedor(id_proveedor),precio numeric NOT NULL);
+
+CREATE TABLE pedido(id_pedido numeric NOT NULL PRIMARY KEY,cliente numeric NOT NULL,fecha_pedido varchar(20) NOT NULL,nombre_cliente varchar(30) NOT NULL,correo_cliente varchar(30) NOT NULL,datos_producto numeric NOT NULL REFERENCES producto(id_producto));
+
+CREATE TABLE almacen(codigo_producto numeric NOT NULL REFERENCES producto(id_producto),producto varchar(30) NOT NULL,cantidad numeric NOT NULL,precio numeric NOT NULL);
